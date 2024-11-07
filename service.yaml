@@ -10,19 +10,19 @@ spec:
       nodePort: 30100  # 원하는 노드 포트 (선택 사항)
   selector:
     app: msa-register-service
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: msa-payment-service
-#spec:
-#  type: NodePort  # 외부에서 접근 가능하도록 설정
-#  ports:
-#    - port: 8001
-#      targetPort: 8001
-#      nodePort: 30300  # 원하는 노드 포트 (선택 사항)
-#  selector:
-#    app: msa-payment-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: msa-payment-service
+spec:
+  type: NodePort  # 외부에서 접근 가능하도록 설정
+  ports:
+    - port: 8001
+      targetPort: 8001
+      nodePort: 30300  # 원하는 노드 포트 (선택 사항)
+  selector:
+    app: msa-payment-service
 ---
 apiVersion: v1
 kind: Service
