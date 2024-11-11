@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mariadb
+  name: mariadb-deploy
   labels:
     app: mariadb
 spec:
@@ -38,7 +38,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb
+  name: mariadb-service
 spec:
   type: ClusterIP  # 기본값, 내부 통신에 사용
   ports:

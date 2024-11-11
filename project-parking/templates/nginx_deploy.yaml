@@ -16,9 +16,16 @@ spec:
       labels:
         app: front-nginx
     spec:
+      initContainers:
+        - name: wait-for-mariadb
+          image: busybox
+          command:
+            - "sh"
+            - "-c"
+            - "until nc -z -v -w30 front-nodejs-svc 3000; do echo 'Waiting for nodejs...'; sleep 5; done;"
       containers:
         - name: front-nginx
-          image: dangdang42/front-nginx:v14
+          image: dangdang42/front-nginx:v17  # 14
           ports:
             - containerPort: 80
 
