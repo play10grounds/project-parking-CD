@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msa-register-service
+  name: msa-register-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: msa-register-service
+      app: msa-register
   template:
     metadata:
       labels:
-        app: msa-register-service
+        app: msa-register
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -20,8 +20,8 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-register-service
-          image: docker.io/yoon741/msa_register_service:v2  # 이미지 이름 수정
+        - name: msa-register
+          image: docker.io/yoon741/msa_register_service:v2 # 이미지 이름 수정
           ports:
             - containerPort: 8000
           env:
@@ -50,16 +50,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msa-payment-service
+  name: msa-payment-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: msa-payment-service
+      app: msa-payment
   template:
     metadata:
       labels:
-        app: msa-payment-service
+        app: msa-payment
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -69,7 +69,7 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-payment-service
+        - name: msa-payment
           image: docker.io/ashashrain/parking-payment-service:v5  # 이미지 이름 수정
           ports:
             - containerPort: 8001
@@ -99,16 +99,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msa-product-service
+  name: msa-product-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: msa-product-service
+      app: msa-product
   template:
     metadata:
       labels:
-        app: msa-product-service
+        app: msa-product
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -118,7 +118,7 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-product-service
+        - name: msa-product
           image: docdker/parking  # 이미지 이름 수정
           ports:
             - containerPort: 8002
@@ -148,16 +148,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msa-statistics-service
+  name: msa-statistics-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: msa-statistics-service
+      app: msa-statistics
   template:
     metadata:
       labels:
-        app: msa-statistics-service
+        app: msa-statistics
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -167,7 +167,7 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-statistics-service
+        - name: msa-statistics
           image: snicuz0588/msa-statistics-service:v6  # 이미지 이름 수정
           #          image: docdker/statistics:v4
           ports:
