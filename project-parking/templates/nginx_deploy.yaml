@@ -43,4 +43,4 @@ spec:
     - port: {{ .Values.deploy.port.nginx }}
       protocol: TCP
       targetPort: {{ .Values.deploy.port.nginx }}
-      nodePort: {{ .Values.service.nodeport.nginx }}
+      nodePort: {{ .Values.url.port.frontend }}
