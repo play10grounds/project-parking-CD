@@ -7,7 +7,7 @@ spec:
   ports:
     - port: {{ .Values.deploy.port.register }}
       targetPort: {{ .Values.deploy.port.register }}
-      nodePort: {{ .Values.service.nodeport.register }}  # 원하는 노드 포트 (선택 사항)
+      nodePort: 30100  # 원하는 노드 포트 (선택 사항)
   selector:
     app: {{ .Values.deploy.app.register }}
 ---
@@ -20,7 +20,7 @@ spec:
   ports:
     - port: {{ .Values.deploy.port.payment }}
       targetPort: {{ .Values.deploy.port.payment }}
-      nodePort: {{ .Values.service.nodeport.payment }}  # 원하는 노드 포트 (선택 사항)
+      nodePort: 30300  # 원하는 노드 포트 (선택 사항)
   selector:
     app: {{ .Values.deploy.app.payment }}
 ---
@@ -33,7 +33,7 @@ spec:
   ports:
     - port: {{ .Values.deploy.port.product }}
       targetPort: {{ .Values.deploy.port.product }}
-      nodePort: {{ .Values.service.nodeport.product }}  # 원하는 노드 포트 (선택 사항)
+      nodePort: 30400  # 원하는 노드 포트 (선택 사항)
   selector:
     app: {{ .Values.deploy.app.product }}
 ---
@@ -46,6 +46,6 @@ spec:
   ports:
     - port: {{ .Values.deploy.port.statistics}}
       targetPort: {{ .Values.deploy.port.statistics}}
-      nodePort: {{ .Values.service.nodeport.statistics }}  # 원하는 노드 포트 (선택 사항)
+      nodePort: 30500  # 원하는 노드 포트 (선택 사항)
   selector:
     app: {{ .Values.deploy.app.statistics }}

@@ -28,24 +28,24 @@ spec:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-secret  # Secret 이름
+                  name: {{ .Values.secret.mariadb.name }}  # Secret 이름
                   key: MYSQL_USER  # Secret 키
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_DATABASE
             - name: MYSQL_HOST
-              value: "mariadb-service"
+              value: {{ .Values.maraidb.name }}
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
+              value: "http://{{ .Values.url.ip }}:{{ .Values.url.port.frontend }},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -77,24 +77,24 @@ spec:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-secret  # Secret 이름
+                  name: {{ .Values.secret.mariadb.name }}  # Secret 이름
                   key: MYSQL_USER  # Secret 키
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_DATABASE
             - name: MYSQL_HOST
-              value: "mariadb-service"
+              value: {{ .Values.maraidb.name }}
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
+              value: "http://{{ .Values.url.ip }}:{{ .Values.url.port.frontend }},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -126,24 +126,24 @@ spec:
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-secret  # Secret 이름
+                  name: {{ .Values.secret.mariadb.name }}  # Secret 이름
                   key: MYSQL_USER  # Secret 키
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_PASSWORD
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_DATABASE
             - name: MYSQL_HOST
-              value: "mariadb-service"
+              value: {{ .Values.maraidb.name }}
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
+              value: "http://{{ .Values.url.ip }}:{{ .Values.url.port.frontend }},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -186,11 +186,11 @@ spec:
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: db-secret
+                  name: {{ .Values.secret.mariadb.name }}
                   key: MYSQL_DATABASE
             - name: MYSQL_HOST
-              value: "mariadb-service"
+              value: {{ .Values.maraidb.name }}
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
+              value: "http://{{ .Values.url.ip }}:{{ .Values.url.port.frontend }},http://front-nodejs-svc:3000"

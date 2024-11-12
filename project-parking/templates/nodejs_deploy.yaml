@@ -28,9 +28,15 @@ spec:
           image: dangdang42/front-nodejs:v40  # 32
           ports:
             - containerPort: {{ .Values.deploy.port.nodejs }}
-          envFrom:
-            - secretRef:
-                name: front-secret
+          env:
+            - name: REGIST_SRV_URL
+              value: {{ .Values.url.ip }}:{{ .Values.url.port.REGIST_SRV_URL }}
+            - name: PAYMENT_SRV_URL
+              value: {{ .Values.url.ip }}:{{ .Values.url.port.PAYMENT_SRV_URL }}
+            - name: PRODUCT_SRV_URL
+              value: {{ .Values.url.ip }}:{{ .Values.url.port.PRODUCT_SRV_URL }}
+            - name: STATISTICS_SRV_URL
+              value: {{ .Values.url.ip }}:{{ .Values.url.port.STATISTICS_SRV_URL }}
 
 ---
 # nodejs
