@@ -34,5 +34,3 @@ url:
 secret:
   mariadb:
     name: db-secret
-
-
