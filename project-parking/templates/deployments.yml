@@ -119,7 +119,7 @@ spec:
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
         - name: msa-product
-          image: docdker/parking  # 이미지 이름 수정
+          image: docdker/parking:v2  # 이미지 이름 수정
           ports:
             - containerPort: 8002
           env:
