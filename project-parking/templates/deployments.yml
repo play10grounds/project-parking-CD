@@ -169,7 +169,7 @@ spec:
       containers:
         - name: {{ .Values.deploy.app.statistics}}
           #image: snicuz0588/msa-statistics-service:v7  # 이미지 이름 수정
-          image: snicuz0588/arm64-statistics-service:v2 # dangdang42/statistics:v2
+          image: snicuz0588/arm64-statistics-service:v1 # dangdang42/statistics:v2
           ports:
             - containerPort: {{ .Values.deploy.port.statistics}}
           env:
