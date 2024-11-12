@@ -22,7 +22,7 @@ spec:
           command:
             - "sh"
             - "-c"
-            - "until nc -z -v -w30 msa-payment-service 8003; do echo 'Waiting for statistics-service...'; sleep 5; done;"
+            - "until nc -z -v -w30 msa-statistics-service 8003; do echo 'Waiting for statistics-service...'; sleep 5; done;"
       containers:
         - name: front-nodejs
           image: dangdang42/front-nodejs:v40  # 32
