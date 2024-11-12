@@ -168,8 +168,8 @@ spec:
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
         - name: msa-statistics
-          image: snicuz0588/msa-statistics-service:v6  # 이미지 이름 수정
-          #          image: docdker/statistics:v4
+          #image: snicuz0588/msa-statistics-service:v6  # 이미지 이름 수정
+          image: dangdang42/statistics:v2
           ports:
             - containerPort: 8003
           env:
