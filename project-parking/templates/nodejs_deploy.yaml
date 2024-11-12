@@ -4,17 +4,17 @@ kind: Deployment
 metadata:
   name: front-nodejs-deploy
   labels:
-    app: front-nodejs
+    app: {{ .Values.deploy.app.nodejs}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-nodejs
+      app: {{ .Values.deploy.app.nodejs}}
   template:
     metadata:
-      name: front-nodejs
+      name: {{ .Values.deploy.app.nodejs}}
       labels:
-        app: front-nodejs
+        app: {{ .Values.deploy.app.nodejs}}
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -24,10 +24,10 @@ spec:
             - "-c"
             - "until nc -z -v -w30 msa-statistics-service 8003; do echo 'Waiting for statistics-service...'; sleep 5; done;"
       containers:
-        - name: front-nodejs
+        - name: {{ .Values.deploy.app.nodejs}}
           image: dangdang42/front-nodejs:v40  # 32
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.deploy.port.nodejs }}
           envFrom:
             - secretRef:
                 name: front-secret
@@ -40,9 +40,9 @@ metadata:
   name: front-nodejs-svc
 spec:
   selector:
-    app: front-nodejs
+    app: {{ .Values.deploy.app.nodejs}}
   ports:
 
-    - port: 3000
+    - port: {{ .Values.deploy.port.nodejs }}
       protocol: TCP
-      targetPort: 3000
+      targetPort: {{ .Values.deploy.port.nodejs }}

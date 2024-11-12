@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: msa-register-deploy
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: msa-register
+      app: {{ .Values.deploy.app.register}}
   template:
     metadata:
       labels:
-        app: msa-register
+        app: {{ .Values.deploy.app.register}}
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -20,10 +20,10 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-register
+        - name: {{ .Values.deploy.app.register}}
           image: docker.io/yoon741/msa_register_service:v2 # 이미지 이름 수정
           ports:
-            - containerPort: 8000
+            - containerPort: {{ .Values.deploy.port.register}}
           env:
             - name: MYSQL_USER
               valueFrom:
@@ -45,21 +45,21 @@ spec:
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://15.165.12.68:30010,http://front-nodejs-svc:3000"
+              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: msa-payment-deploy
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: msa-payment
+      app: {{ .Values.deploy.app.payment}}
   template:
     metadata:
       labels:
-        app: msa-payment
+        app: {{ .Values.deploy.app.payment}}
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -69,10 +69,10 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-payment
+        - name: {{ .Values.deploy.app.payment}}
           image: docker.io/ashashrain/parking-payment-service:v6  # 이미지 이름 수정
           ports:
-            - containerPort: 8001
+            - containerPort: {{ .Values.deploy.port.payment}}
           env:
             - name: MYSQL_USER
               valueFrom:
@@ -94,21 +94,21 @@ spec:
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://15.165.12.68:30010,http://front-nodejs-svc:3000"
+              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: msa-product-deploy
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: msa-product
+      app: {{ .Values.deploy.app.product}}
   template:
     metadata:
       labels:
-        app: msa-product
+        app: {{ .Values.deploy.app.product}}
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -118,10 +118,10 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-product
+        - name: {{ .Values.deploy.app.product}}
           image: docdker/parking:v2  # 이미지 이름 수정
           ports:
-            - containerPort: 8002
+            - containerPort: {{ .Values.deploy.port.product }}
           env:
             - name: MYSQL_USER
               valueFrom:
@@ -143,21 +143,21 @@ spec:
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://15.165.12.68:30010,http://front-nodejs-svc:3000"
+              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: msa-statistics-deploy
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: msa-statistics
+      app: {{ .Values.deploy.app.statistics}}
   template:
     metadata:
       labels:
-        app: msa-statistics
+        app: {{ .Values.deploy.app.statistics}}
     spec:
       initContainers:
         - name: wait-for-mariadb
@@ -167,11 +167,11 @@ spec:
             - "-c"
             - "until nc -z -v -w30 mariadb-service 3306; do echo 'Waiting for mariadb...'; sleep 5; done;"
       containers:
-        - name: msa-statistics
-          #image: snicuz0588/msa-statistics-service:v6  # 이미지 이름 수정
-          image: dangdang42/statistics:v2
+        - name: {{ .Values.deploy.app.statistics}}
+          image: snicuz0588/msa-statistics-service:v7  # 이미지 이름 수정
+          #image: dangdang42/statistics:v2
           ports:
-            - containerPort: 8003
+            - containerPort: {{ .Values.deploy.port.statistics}}
           env:
             - name: MYSQL_USER
               valueFrom:
@@ -193,4 +193,4 @@ spec:
             - name: MYSQL_PORT
               value: "3306"
             - name: CORS_ORIGINS
-              value: "http://15.165.12.68:30010,http://front-nodejs-svc:3000"
+              value: "http://{{.Values.deploy.frontend.ip}}:{{.Values.deploy.frontend.port}},http://front-nodejs-svc:3000"

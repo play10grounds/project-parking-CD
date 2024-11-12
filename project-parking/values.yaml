@@ -1,0 +1,32 @@
+replicaCount: 1
+
+deploy:
+  app:
+    register: msa-register
+    payment: msa-payment
+    product: msa-product
+    statistics: msa-statistics
+    nodejs: front-nodejs
+    nginx: front-nginx
+    mariadb: mariadb
+
+  port:
+    register: 8000
+    payment: 8001
+    product: 8002
+    statistics: 8003
+    nodejs: 3000
+    nginx: 80
+    mariadb: 3306
+
+  frontend:
+    ip: 13.209.2.10
+    port: 3001
+
+service:
+  nodeport:
+    register: 30100
+    payment: 30300
+    product: 30400
+    statistics: 30500
+    nginx: 30010
