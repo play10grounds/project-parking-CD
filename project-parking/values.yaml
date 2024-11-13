@@ -34,3 +34,11 @@ url:
 secret:
   mariadb:
     name: db-secret
+
+imgs:
+  REGIST_IMG: yoon741/arm64-register-service:latest
+  PAYMENT_IMG: ashashrain/arm64-payment-service:latest
+  PARKING_IMG: docdker/arm64-parking-service:latest
+  STATISTICS_IMG: snicuz0588/arm64-statistics-service:latest
+  NODEJS_IMG: dangdang42/arm64-nodejs:latest
+  NGINX_IMG: dangdang42/arm64-nginx:latest
