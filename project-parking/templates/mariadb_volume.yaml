@@ -1,3 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-storage
+provisioner: kubernetes.io/nfs
+parameters:
+  server: 172.16.2.134
+  path: /nfs-share
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -6,9 +15,12 @@ spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/mnt/data"
+    - ReadWriteMany  # 여러 노드에서 접근 가능하도록 변경
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-storage
+  nfs:
+    server: 172.16.2.134
+    path: /nfs-share
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -16,7 +28,8 @@ metadata:
   name: mariadb-pv-claim
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany  # 여러 노드에서 접근 가능하도록 변경
+  storageClassName: nfs-storage
   resources:
     requests:
       storage: 1Gi
