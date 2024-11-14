@@ -20,7 +20,8 @@ spec:
   storageClassName: nfs-storage
   nfs:
     server: 172.16.2.134
-    path: /nfs-share
+    path: /nfs-share/mysql
+    readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
