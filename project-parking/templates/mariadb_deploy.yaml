@@ -30,6 +30,22 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mariadb-storage
+      nodeSelector:
+        kubernetes.io/hostname: "gitops2"               
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - gitops2      
+      tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "mariadb"
+        effect: "NoSchedule"                
       volumes:
         - name: mariadb-storage
           persistentVolumeClaim:
