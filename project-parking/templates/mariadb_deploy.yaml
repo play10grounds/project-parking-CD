@@ -31,16 +31,7 @@ spec:
             - mountPath: /var/lib/mysql
               name: mariadb-storage
       nodeSelector:
-        kubernetes.io/hostname: "gitops2"               
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - gitops2      
+        kubernetes.io/hostname: gitops2 
       tolerations:
       - key: "dedicated"
         operator: "Equal"
